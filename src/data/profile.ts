@@ -34,7 +34,7 @@ export interface SkillCategory {
 
 export const profile = {
   name: "Robert Li",
-  tagline: "Competitive Programmer • USACO Silver • Aspiring Security Researcher",
+  tagline: "Aspiring Software Engineer • AI / ML",
   region: "San Francisco Bay Area",
   contact: {
     phone: "",
@@ -44,29 +44,26 @@ export const profile = {
     website: "https://robbotato.github.io",
   },
   about: {
-    bio: "I'm a high school sophomore at Amador Valley High School who spends most of his free time on competitive programming. I qualified for the USACO Silver division, teach Python to a class of middle schoolers, and captain my school's varsity swim team. I'm heading into a Cybersecurity pathway and want to work in network security and ethical hacking.",
+    bio: "I'm a high school junior at Amador Valley High School who is passionate about software engineering, competitive programming, AI, and building machine learning projects. I'm a varsity swimmer and team captain, a Python teacher through my coding club, and a USACO Gold competitor. I enjoy developing Minecraft mods, creating AI-powered projects, participating in hackathons, and exploring new areas of computer science.",
     highlights: [
       "Python",
       "Java",
       "C++",
-      "USACO Silver",
-      "Algorithms",
-      "Linux",
-      "Cybersecurity",
+      "USACO Gold"
     ],
   },
 };
 
 export const experiences: Experience[] = [
   {
-    company: "ACE Coding Club",
+    company: "ACE Coding",
     location: "Harvest Park Middle School, Pleasanton, CA",
-    role: "Python Instructor",
-    period: "Jan 2025 – Present",
+    role: "Python Teacher",
+    period: "Aug 2024 – Present",
     logoUrl: "",
     summary:
       "Instruct a class of 15+ middle school students in fundamental Python, reaching a 100% project completion rate for the intro curriculum. Built and refined 10+ hands-on lesson plans on variables, loops, and beginner algorithms, and mentor students through debugging sessions to sharpen their computational thinking.",
-    skills: ["Python", "Curriculum Design", "Mentorship", "Debugging"],
+    skills: ["Python", "Tutoring"],
   },
   {
     company: "AVHS Varsity Swim Team",
@@ -87,7 +84,7 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     name: "Tools",
-    skills: ["Git", "GitHub", "VS Code", "Linux", "Bash"],
+    skills: ["Git", "GitHub", "VS Code", "Antigravity", "Linux", "Bash"],
   },
   {
     name: "CS Concepts",
@@ -104,9 +101,8 @@ export const skillCategories: SkillCategory[] = [
   {
     name: "Focus Areas",
     skills: [
+      "Machine Learning",
       "Cybersecurity",
-      "Network Security",
-      "Ethical Hacking",
       "Competitive Programming",
     ],
   },
@@ -119,9 +115,7 @@ export const education: Education[] = [
     period: "2024 – 2028 (Expected)",
     gpa: "3.8",
     details: [
-      "AP Computer Science A — perfect score, first semester",
-      "CTE Computer Science Pathway; Cybersecurity pathway enrolled for 2026–2027",
-      "Honors Pre-Calculus, Physics, Chemistry, Honors English, AP World History",
+      "AP Classes: AP World History, AP Computer Science A, AP Calculus BC, AP Chemistry, AP Physics C, AP Statistics, AP Chinese, AP Cybersecurity",
     ],
   },
 ];
@@ -155,17 +149,9 @@ export const projects: Project[] = [
 
 export const awards: Award[] = [
   {
-    title: "USACO Silver Division — 972/1000 in the First Bronze Contest",
+    title: "USACO Silver — 972/1000 in the First Bronze Contest",
     date: "2026",
-  },
-  {
-    title: "Perfect score, AP Computer Science A (Semester 1)",
-    date: "2025",
-  },
-  {
-    title: "100+ LeetCode problems solved — arrays, dynamic programming, trees",
-    date: "Ongoing",
-  },
+  }
 ];
 
 export const navLinks = [

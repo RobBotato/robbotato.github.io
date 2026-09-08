@@ -208,14 +208,14 @@ const Hobbies = () => {
                   <div className="p-3.5 bg-blue-500/10 rounded-2xl text-blue-400 border border-blue-500/20 shadow-[0_0_20px_rgba(59,157,255,0.1)]">
                     <Trophy className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-bold tracking-wide">The Competitive Brain</h3>
+                  <h3 className="text-2xl font-bold tracking-wide">The Mentality</h3>
                 </div>
                 <p className="text-foreground/70 leading-relaxed text-lg md:text-xl mb-8">
                   USACO Silver, 100+ LeetCode problems, a swim team to captain, and a chess clock that never really stops. Different arenas, same loop: study the pattern, fail fast, adjust, go again.
                 </p>
                 <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-sm font-medium text-blue-300">
                   <span className="w-2.5 h-2.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(59,157,255,0.8)] animate-pulse" />
-                  Always training
+                  Always Active
                 </div>
               </div>
             </BentoCard>
