@@ -1,0 +1,450 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Modern Software Engineer Theme — deep slate base, cyan/emerald accents, glassmorphism */
+
+@layer base {
+  :root {
+    /* Deep slate-950 base — close to VS Code "Default Dark Modern" / Vercel */
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 40% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 45% 7%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary: cyan-500 (#06b6d4) — sharp neon accent */
+    --primary: 189 94% 43%;
+    --primary-foreground: 222 47% 5%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 14%;
+    --muted-foreground: 215 20% 72%;
+
+    /* Accent: emerald-500 (#10b981) */
+    --accent: 160 84% 39%;
+    --accent-foreground: 222 47% 5%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 20%;
+    --input: 217 33% 17%;
+    --ring: 189 94% 43%;
+
+    --radius: 1.25rem;
+
+    /* Glass tokens — meaningfully opaque so text stays legible over 3D */
+    --glass-bg: 222 47% 7% / 0.62;
+    --glass-bg-strong: 222 47% 6% / 0.78;
+    --glass-border: 189 94% 60% / 0.12;
+    --glass-highlight: 210 40% 98% / 0.06;
+    --glass-shadow: 222 47% 2% / 0.55;
+    --glass-blur: 28px;
+
+    /* Aurora — cyan / indigo / emerald instead of cyan / purple / pink */
+    --gradient-aurora-1: 189 94% 50%;   /* cyan */
+    --gradient-aurora-2: 239 84% 67%;   /* indigo */
+    --gradient-aurora-3: 160 84% 45%;   /* emerald */
+    --gradient-text: linear-gradient(135deg, hsl(189 94% 60%), hsl(160 84% 55%));
+
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /*
+     * Always reserve scrollbar gutter so it doesn't pop in/out when the body
+     * conditionally mounts after the dive. Prevents a ~10px horizontal layout
+     * shift that otherwise jitters the entire hero section into place.
+     */
+    overflow-y: scroll;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    /*
+     * Clip horizontal overflow so the CTA buttons (which spring in from
+     * x: ±340) never push the page wider than viewport during their entry.
+     * Vertical scroll stays unaffected.
+     */
+    overflow-x: clip;
+    /* Subtle dotted grid backdrop, IDE-style */
+    background-image:
+      radial-gradient(hsl(189 94% 50% / 0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, sans-serif;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  ::selection {
+    background: hsl(189 94% 43% / 0.35);
+    color: hsl(210 40% 98%);
+  }
+}
+
+@layer components {
+  /* Glass card — the workhorse. Strong blur + opaque slate so text always reads. */
+  .glass {
+    @apply relative overflow-hidden;
+    background: hsla(var(--glass-bg));
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border: 1px solid hsla(var(--glass-border));
+    box-shadow:
+      0 8px 32px hsla(var(--glass-shadow)),
+      inset 0 1px 0 hsla(var(--glass-highlight));
+    transform: translateZ(0);
+    will-change: transform, backdrop-filter;
+  }
+
+  /* Use on sections that sit over heavy 3D — even more opaque. */
+  .glass-strong {
+    @apply relative overflow-hidden;
+    background: hsla(var(--glass-bg-strong));
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border: 1px solid hsla(var(--glass-border));
+    box-shadow:
+      0 12px 40px hsla(var(--glass-shadow)),
+      inset 0 1px 0 hsla(var(--glass-highlight));
+    transform: translateZ(0);
+    will-change: transform, backdrop-filter;
+  }
+
+  .glass::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(
+      135deg,
+      hsla(var(--glass-highlight)) 0%,
+      transparent 50%
+    );
+    border-radius: inherit;
+  }
+
+  /* Noise overlay */
+  .noise {
+    @apply fixed inset-0 pointer-events-none z-50;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    mix-blend-mode: overlay;
+  }
+
+  /* Gradient text — cyan→emerald */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-text);
+  }
+
+  /* Tech pill — lightly tinted, mono-ish vibe */
+  .pill {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium;
+    background: hsla(217 33% 14% / 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsla(189 94% 60% / 0.18);
+    color: hsl(210 40% 92%);
+    transition: var(--transition-smooth);
+  }
+
+  .pill:hover {
+    border-color: hsla(189 94% 60% / 0.45);
+    background: hsla(189 94% 50% / 0.12);
+  }
+
+  /* Section fade in */
+  .section-fade {
+    @apply opacity-0 translate-y-8;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  .section-fade.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 40px hsla(var(--glass-shadow)),
+      0 0 0 1px hsla(189 94% 60% / 0.25),
+      inset 0 1px 0 hsla(var(--glass-highlight));
+  }
+
+  /* Timeline */
+  .timeline-line {
+    @apply absolute left-6 top-12 bottom-0 w-px;
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--primary)) 0%,
+      hsl(var(--accent)) 50%,
+      transparent 100%
+    );
+  }
+
+  .timeline-dot {
+    @apply absolute left-4 w-4 h-4 rounded-full border-2;
+    background: hsl(var(--primary));
+    border-color: hsl(var(--background));
+    box-shadow: 0 0 18px hsl(var(--primary) / 0.6);
+  }
+}
+
+@layer utilities {
+  /* Aurora background animation — softer, dev-y palette */
+  .aurora-bg {
+    @apply fixed inset-0 -z-10 overflow-hidden;
+  }
+
+  .aurora-blob {
+    @apply absolute rounded-full blur-3xl;
+    opacity: 0.22;
+    animation: aurora-float 20s ease-in-out infinite;
+  }
+
+  .aurora-blob-1 {
+    @apply w-[600px] h-[600px] -top-32 -left-32;
+    background: radial-gradient(circle, hsl(var(--gradient-aurora-1)) 0%, transparent 70%);
+    animation-delay: 0s;
+  }
+
+  .aurora-blob-2 {
+    @apply w-[500px] h-[500px] top-1/3 -right-32;
+    background: radial-gradient(circle, hsl(var(--gradient-aurora-2)) 0%, transparent 70%);
+    animation-delay: -7s;
+  }
+
+  .aurora-blob-3 {
+    @apply w-[700px] h-[700px] -bottom-32 left-1/3;
+    background: radial-gradient(circle, hsl(var(--gradient-aurora-3)) 0%, transparent 70%);
+    animation-delay: -14s;
+  }
+
+  /* Extra deep-space nebula blobs */
+  .aurora-blob-4 {
+    @apply w-[400px] h-[400px] top-2/3 -left-16;
+    background: radial-gradient(circle, hsl(180 80% 40%) 0%, transparent 70%);
+    animation-delay: -5s;
+    animation-duration: 30s;
+    opacity: 0.12;
+  }
+
+  .aurora-blob-5 {
+    @apply w-[900px] h-[900px] top-1/4 right-0;
+    background: radial-gradient(circle, hsl(260 70% 35%) 0%, transparent 65%);
+    animation-delay: -18s;
+    animation-duration: 50s;
+    opacity: 0.08;
+  }
+
+  @keyframes aurora-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25%      { transform: translate(50px, -30px) scale(1.1); }
+    50%      { transform: translate(-30px, 50px) scale(0.95); }
+    75%      { transform: translate(-50px, -20px) scale(1.05); }
+  }
+
+  /* Marquee — sleek SE-aesthetic logo strip */
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 35s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-track-reverse {
+    animation: marquee-scroll 45s linear infinite reverse;
+    will-change: transform;
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 8%,
+      black 92%,
+      transparent 100%
+    );
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.5), hsl(var(--accent) / 0.5));
+    border-radius: 6px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, hsl(var(--primary) / 0.8), hsl(var(--accent) / 0.8));
+  }
+
+  .hide-mobile {
+    @apply hidden md:block;
+  }
+
+  .particle-blur {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  @keyframes float-random-1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.15; }
+    33%      { transform: translate(20px, -30px) rotate(5deg); opacity: 0.25; }
+    66%      { transform: translate(-15px, 20px) rotate(-3deg); opacity: 0.10; }
+  }
+
+  @keyframes float-random-2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.20; }
+    33%      { transform: translate(-25px, 15px) rotate(-4deg); opacity: 0.10; }
+    66%      { transform: translate(30px, -10px) rotate(6deg); opacity: 0.30; }
+  }
+
+  @keyframes float-random-3 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.18; }
+    33%      { transform: translate(15px, 25px) rotate(3deg); opacity: 0.25; }
+    66%      { transform: translate(-20px, -15px) rotate(-5deg); opacity: 0.12; }
+  }
+
+  @keyframes float-random-4 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.22; }
+    33%      { transform: translate(-18px, -20px) rotate(-6deg); opacity: 0.15; }
+    66%      { transform: translate(25px, 18px) rotate(4deg); opacity: 0.28; }
+  }
+
+  .will-change-transform { will-change: transform; }
+
+  @keyframes shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shimmer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent
+    );
+    animation: shimmer 3s infinite;
+    animation-delay: 2s;
+  }
+
+  .btn-shimmer:hover::before {
+    animation-play-state: paused;
+  }
+
+  /* Glitch — RGB chromatic split for the intro name reveal.
+     Two pseudo-layers offset in opposite directions, brief jitter then settle. */
+  @keyframes glitch-r {
+    0%, 100%       { transform: translate(0, 0); }
+    8%             { transform: translate(2px, -1px); }
+    14%            { transform: translate(-2px, 1px); }
+    22%, 92%       { transform: translate(0, 0); }
+  }
+
+  @keyframes glitch-g {
+    0%, 100%       { transform: translate(0, 0); }
+    8%             { transform: translate(-2px, 1px); }
+    14%            { transform: translate(2px, -1px); }
+    22%, 92%       { transform: translate(0, 0); }
+  }
+
+  /* --- Feature C: Scroll-velocity motion blur --- */
+  /* ScrollMotionBlur.tsx writes --scroll-blur as a CSS custom property.
+     We apply it to <main> so only page content blurs (not the navbar). */
+  main {
+    filter: blur(var(--scroll-blur, 0px));
+    will-change: filter;
+  }
+
+  /* --- Feature D: Glitch hover — chromatic aberration on hover --- */
+  .glitch-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .glitch-wrap::before,
+  .glitch-wrap::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.05s;
+    /* inherit the gradient/text style from parent */
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glitch-wrap[data-glitching="true"]::before {
+    opacity: 0.7;
+    color: hsl(189 94% 50%);
+    -webkit-text-fill-color: hsl(189 94% 50% / 0.6);
+    animation: glitch-r 0.2s steps(2) 1;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+
+  .glitch-wrap[data-glitching="true"]::after {
+    opacity: 0.7;
+    color: hsl(160 84% 45%);
+    -webkit-text-fill-color: hsl(160 84% 45% / 0.6);
+    animation: glitch-g 0.2s steps(2) 1;
+    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  }
+}

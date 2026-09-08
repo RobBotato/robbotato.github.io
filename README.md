@@ -1,22 +1,36 @@
 # robbotato.github.io
 
-Source for my personal site, live at <https://robbotato.github.io>.
+Robert Li's personal site — live at <https://robbotato.github.io>.
 
-Plain HTML, CSS, and a little JavaScript — no build step. Push to `main` and
-GitHub Pages serves it.
+3D interactive portfolio: Vite + React + TypeScript + Tailwind, with a
+Three.js constellation background, a cinematic intro "dive", glassmorphism,
+and Framer Motion scroll choreography. Hardcoded dark theme.
 
+## Develop
+
+```bash
+npm install
+npm run dev      # http://localhost:8080
+npm run build    # -> dist/
+npm run lint
 ```
-index.html      markup
-css/style.css   design tokens + light/dark palettes
-js/theme.js     dark-mode toggle (system preference + manual override)
-assets/         images, favicon, resume
-```
 
-## Editing
+## Edit content
 
-- **Projects** — edit the `.card` list in `index.html`.
-- **Resume** — edit the `.resume` block in `index.html`.
-- **Colors** — change the custom properties at the top of `css/style.css`.
+All portfolio content lives in **`src/data/profile.ts`** — name, tagline,
+contact, experience, skills, education, projects, awards. Components read
+from it, so that's the only file to touch for a content change.
 
-Preview locally by opening `index.html` in a browser, or run
-`python -m http.server` from this directory and visit <http://localhost:8000>.
+- Resume PDF: replace `public/resume.pdf`.
+- 3D centerpiece: `src/components/animated/ConstellationField.tsx`.
+- Theme tokens: `src/index.css`.
+- Second page (`/hobbies`): `src/pages/Hobbies.tsx`.
+
+## Deploy
+
+Push to `main` → `.github/workflows/deploy.yml` builds and publishes to
+GitHub Pages. Repo **Settings → Pages → Source** must be set to
+**GitHub Actions**.
+
+Adapted from the MIT-licensed portfolio template at
+<https://github.com/rl4658/rl4658.github.io>.
