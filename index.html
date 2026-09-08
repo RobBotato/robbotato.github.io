@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Robert Li</title>
+  <meta name="description" content="Robert Li — student, competitive programmer, and aspiring security researcher." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A5%94%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    // Set theme before paint to avoid a flash of the wrong palette.
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="#top">RL</a>
+      <ul class="nav__links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#resume">Resume</a></li>
+      </ul>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section id="top" class="hero">
+      <p class="hero__eyebrow">Amador Valley High School &middot; Class of 2028</p>
+      <h1 class="hero__name">Robert Li</h1>
+      <p class="hero__tagline">
+        Competitive programmer and aspiring security researcher. I write algorithms,
+        teach kids to code, and captain a swim team.
+      </p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="https://github.com/RobBotato" target="_blank" rel="noopener">GitHub</a>
+        <a class="button" href="mailto:lirobert2009@gmail.com">Email</a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2 class="section__title">About</h2>
+      <div class="prose">
+        <p>
+          I'm a sophomore at Amador Valley High School in Pleasanton, California. I spend
+          most of my free time on competitive programming &mdash; I qualified for the
+          <strong>USACO Silver division</strong> with a score of 972/1000 in the First
+          Bronze Contest, and I've solved 100+ problems across arrays, dynamic
+          programming, and trees.
+        </p>
+        <p>
+          I teach fundamental Python to a class of 15+ middle schoolers at the
+          <strong>ACE Coding Club</strong>, where I've built out 10+ hands-on lesson
+          plans and run debugging sessions. Outside of code, I'm captain of the
+          <strong>AVHS varsity swim team</strong>, coordinating training for a roster
+          of 20+ athletes.
+        </p>
+        <p>
+          I'm most interested in cybersecurity, network security, and ethical hacking,
+          and I'm enrolled in my school's Cybersecurity pathway for 2026&ndash;2027.
+        </p>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <h2 class="section__title">Projects</h2>
+      <p class="section__lead">A few things I'm building. More on the way.</p>
+      <ul class="cards">
+        <li class="card">
+          <h3 class="card__title">Project name</h3>
+          <p class="card__body">
+            One or two sentences on what it does and why it's interesting. Replace this
+            with a real project.
+          </p>
+          <ul class="card__tags">
+            <li>Python</li>
+            <li>CLI</li>
+          </ul>
+          <div class="card__links">
+            <a href="#" target="_blank" rel="noopener">Source</a>
+          </div>
+        </li>
+        <li class="card">
+          <h3 class="card__title">Project name</h3>
+          <p class="card__body">
+            One or two sentences on what it does and why it's interesting. Replace this
+            with a real project.
+          </p>
+          <ul class="card__tags">
+            <li>C++</li>
+            <li>Algorithms</li>
+          </ul>
+          <div class="card__links">
+            <a href="#" target="_blank" rel="noopener">Source</a>
+          </div>
+        </li>
+        <li class="card">
+          <h3 class="card__title">Project name</h3>
+          <p class="card__body">
+            One or two sentences on what it does and why it's interesting. Replace this
+            with a real project.
+          </p>
+          <ul class="card__tags">
+            <li>Java</li>
+          </ul>
+          <div class="card__links">
+            <a href="#" target="_blank" rel="noopener">Source</a>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="resume" class="section">
+      <h2 class="section__title">Resume</h2>
+
+      <div class="resume">
+        <div class="resume__group">
+          <h3 class="resume__heading">Education</h3>
+          <div class="resume__item">
+            <div class="resume__row">
+              <span class="resume__role">Amador Valley High School</span>
+              <span class="resume__meta">2024 &ndash; 2028 (expected)</span>
+            </div>
+            <p class="resume__note">GPA 3.8/4.0. AP Computer Science A (perfect score, first semester),
+              CTE Computer Science Pathway, Honors Pre-Calculus, Physics, Chemistry.
+              Cybersecurity pathway enrolled for 2026&ndash;2027.</p>
+          </div>
+        </div>
+
+        <div class="resume__group">
+          <h3 class="resume__heading">Experience</h3>
+          <div class="resume__item">
+            <div class="resume__row">
+              <span class="resume__role">Python Instructor &mdash; ACE Coding Club</span>
+              <span class="resume__meta">Jan 2025 &ndash; Present</span>
+            </div>
+            <p class="resume__note">Teach fundamental Python to 15+ middle school students at Harvest Park
+              Middle School. Built 10+ hands-on lesson plans on variables, loops, and beginner algorithms;
+              100% project completion rate for the intro curriculum.</p>
+          </div>
+        </div>
+
+        <div class="resume__group">
+          <h3 class="resume__heading">Leadership</h3>
+          <div class="resume__item">
+            <div class="resume__row">
+              <span class="resume__role">Team Captain &mdash; AVHS Varsity Swim</span>
+              <span class="resume__meta">Feb 2025 &ndash; Present</span>
+            </div>
+            <p class="resume__note">Coordinate weekly training for a roster of 20+ varsity athletes with the
+              coaching staff. Primary liaison between athletes and coaches; mentor underclassmen on
+              goal-setting and technique.</p>
+          </div>
+        </div>
+
+        <div class="resume__group">
+          <h3 class="resume__heading">Honors &amp; Awards</h3>
+          <div class="resume__item">
+            <div class="resume__row">
+              <span class="resume__role">USACO Silver Division</span>
+              <span class="resume__meta">2026</span>
+            </div>
+            <p class="resume__note">Qualified with 972/1000 in the First Bronze Contest. Graph algorithms,
+              greedy methods, binary search.</p>
+          </div>
+          <div class="resume__item">
+            <div class="resume__row">
+              <span class="resume__role">Competitive Programming</span>
+              <span class="resume__meta">Ongoing</span>
+            </div>
+            <p class="resume__note">100+ LeetCode problems across arrays, dynamic programming, and trees.</p>
+          </div>
+        </div>
+
+        <div class="resume__group">
+          <h3 class="resume__heading">Skills</h3>
+          <ul class="resume__skills">
+            <li>Python</li>
+            <li>Java</li>
+            <li>C++</li>
+            <li>Git &amp; GitHub</li>
+            <li>Linux</li>
+            <li>VS Code</li>
+            <li>Data Structures &amp; Algorithms</li>
+            <li>Object-Oriented Programming</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year">2026</span> Robert Li. Built with plain HTML &amp; CSS.</p>
+  </footer>
+
+  <script src="js/theme.js"></script>
+</body>
+</html>
