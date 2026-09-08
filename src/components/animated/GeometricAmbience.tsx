@@ -38,7 +38,7 @@ const COLORS = {
 };
 
 const GeometricAmbience = ({
-  shapeCount = 10,
+  shapeCount = 4,
   colorPalette = ["cyan", "purple", "pink"],
   intensityLevel = "subtle",
 }: GeometricAmbienceProps) => {
@@ -188,12 +188,7 @@ const AnimatedShape = ({
         ease: "easeInOut",
       }}
     >
-      <svg
-        width={shape.size}
-        height={shape.size}
-        className="blur-2xl"
-        style={{ mixBlendMode: "screen" }}
-      >
+      <svg width={shape.size} height={shape.size} className="blur-xl">
         {renderShape(shape)}
       </svg>
     </motion.div>

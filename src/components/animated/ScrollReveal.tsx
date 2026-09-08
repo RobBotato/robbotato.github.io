@@ -71,7 +71,6 @@ const ScrollReveal = ({
         rotateX: startRotateX,
         rotateY: startRotateY,
         scale: startScale,
-        filter: "blur(8px)",
       }}
       whileInView={{
         opacity: 1,
@@ -80,18 +79,16 @@ const ScrollReveal = ({
         rotateX: 0,
         rotateY: 0,
         scale: 1,
-        filter: "blur(0px)",
       }}
       viewport={{ once: true, margin: "0px 0px 150px 0px" }}
       transition={{
-        duration: 0.85,
+        duration: 0.8,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}
       style={{
         transformPerspective: 1100,
         transformStyle: "preserve-3d",
-        willChange: "transform, opacity",
       }}
       className={className}
     >

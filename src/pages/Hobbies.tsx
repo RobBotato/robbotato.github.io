@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import CursorGlow from "@/components/CursorGlow";
 import AuroraBackground from "@/components/AuroraBackground";
-import { GeometricAmbience, WordGlobe } from "@/components/animated";
+import { GeometricAmbience } from "@/components/animated";
 import { profile } from "@/data/profile";
 import { Waves, Terminal, Crown, Code2, Trophy, ArrowLeft } from "lucide-react";
+
+/* Heavy (three.js + troika text) — split out of the main bundle. */
+const WordGlobe = lazy(() => import("@/components/animated/WordGlobe"));
 
 /* ------------------------------------------------------------------------- */
 /* BentoCard — A glassmorphic container with mouse-tracking hover spotlight  */
@@ -70,7 +73,7 @@ const Hobbies = () => {
         {/* Background Effects */}
         <CursorGlow />
         <AuroraBackground />
-        <GeometricAmbience shapeCount={8} colorPalette={["cyan", "purple", "pink"]} />
+        <GeometricAmbience shapeCount={3} colorPalette={["cyan", "purple", "pink"]} />
 
         {/* Floating Back Button */}
         <motion.button
@@ -172,7 +175,9 @@ const Hobbies = () => {
               </div>
               <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(2,6,23,0.8)_100%)] z-10" />
               <div className="w-full h-full pt-16 flex items-center justify-center">
-                <WordGlobe />
+                <Suspense fallback={null}>
+                  <WordGlobe />
+                </Suspense>
               </div>
             </BentoCard>
 

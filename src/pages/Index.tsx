@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 import { AnimatePresence, motion } from "framer-motion";
 import AuroraBackground from "@/components/AuroraBackground";
 import CursorGlow from "@/components/CursorGlow";
-import ScrollMotionBlur from "@/components/ScrollMotionBlur";
 import { GeometricAmbience, ChapterStrip, SectionCutSentinel, NeuralNetField } from "@/components/animated";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/sections/HeroSection";
@@ -74,10 +73,8 @@ const IndexInner = () => {
       </Helmet>
 
       <div className="relative min-h-screen">
-        {/* Feature A: Cursor glow halo — always on */}
+        {/* Cursor glow halo — always on */}
         <CursorGlow />
-        {/* Feature C: Scroll-velocity motion blur — writes --scroll-blur CSS var */}
-        <ScrollMotionBlur />
         {/* Neural-net canvas — persistent across intro/ambient. Reads phase from context. */}
         <NeuralNetField rotationSpeed={0.0016} />
 
@@ -107,7 +104,7 @@ const IndexInner = () => {
             >
               <ChapterStrip />
               <AuroraBackground />
-              <GeometricAmbience shapeCount={10} colorPalette={["cyan", "purple", "pink"]} />
+              <GeometricAmbience shapeCount={4} colorPalette={["cyan", "purple", "pink"]} />
 
               <NavBar
                 onResumeClick={() => setIsResumeModalOpen(true)}

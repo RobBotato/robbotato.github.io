@@ -24,7 +24,7 @@ const LAYER_SIZES = [4, 7, 9, 7, 3];
 const LAYER_GAP = 2.0;
 const NODE_GAP = 0.72;
 const Z_JITTER = 0.14;
-const PULSE_COUNT = 74;
+const PULSE_COUNT = 48;
 const PICK_PX = 26; // screen-space pick radius for a neuron
 
 interface NetMark {
@@ -80,8 +80,8 @@ const NeuralNetField = ({ rotationSpeed = 0.0016 }: NeuralNetFieldProps) => {
     >
       <Canvas
         camera={{ position: [0, 0, 9], fov: 50 }}
-        dpr={[1, 1.25]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={1}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
         <fog attach="fog" args={["#0a0a0a", 12, 30]} />
         <ambientLight intensity={0.2} />
@@ -147,6 +147,7 @@ const NetMesh = ({
   });
   const pointerNDC = useRef({ x: 0, y: 0 });
   const interactive = useRef(false);
+  const netDirty = useRef(true); // rewrite node/edge buffers this frame?
 
   if (!isWarping && warpStart.current !== 0) warpStart.current = 0;
 
@@ -513,37 +514,52 @@ const NetMesh = ({
 
     /* ---- Node spring: drag follows pointer, everything else eases home ---- */
     const springing = phase === "done" && !isWarping;
+    let anyMoved = false;
     for (let i = 0; i < built.nodes.length; i++) {
       const n = built.nodes[i];
       if (!springing) {
         n.copy(built.homes[i]);
       } else if (i === drag.current.index) {
         n.lerp(drag.current.target, 0.35);
-      } else {
+        anyMoved = true;
+      } else if (n.distanceToSquared(built.homes[i]) > 1e-6) {
         n.lerp(built.homes[i], 0.045);
+        anyMoved = true;
+      } else {
+        n.copy(built.homes[i]); // snap — kills sub-pixel drift so we can idle
       }
     }
 
-    /* ---- Rewrite geometry buffers from live node positions ---- */
-    const nPos = built.nodeGeometry.attributes.position.array as Float32Array;
-    for (let i = 0; i < built.nodes.length; i++) {
-      nPos[i * 3] = built.nodes[i].x;
-      nPos[i * 3 + 1] = built.nodes[i].y;
-      nPos[i * 3 + 2] = built.nodes[i].z;
-    }
-    built.nodeGeometry.attributes.position.needsUpdate = true;
+    /*
+     * Only rewrite the node + edge position buffers when the graph shape is
+     * actually changing (a neuron is being dragged or is springing home, or
+     * we just left the dive). Otherwise the geometry is already correct and
+     * we skip ~1.5k float writes + 2 GPU uploads every frame.
+     */
+    if (anyMoved) netDirty.current = true;
+    if (netDirty.current) {
+      const nPos = built.nodeGeometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < built.nodes.length; i++) {
+        nPos[i * 3] = built.nodes[i].x;
+        nPos[i * 3 + 1] = built.nodes[i].y;
+        nPos[i * 3 + 2] = built.nodes[i].z;
+      }
+      built.nodeGeometry.attributes.position.needsUpdate = true;
 
-    const ePos = built.edgeGeometry.attributes.position.array as Float32Array;
-    for (let i = 0; i < built.edgePairs.length; i++) {
-      const [a, b] = built.edgePairs[i];
-      ePos[i * 6] = a.x;
-      ePos[i * 6 + 1] = a.y;
-      ePos[i * 6 + 2] = a.z;
-      ePos[i * 6 + 3] = b.x;
-      ePos[i * 6 + 4] = b.y;
-      ePos[i * 6 + 5] = b.z;
+      const ePos = built.edgeGeometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < built.edgePairs.length; i++) {
+        const [a, b] = built.edgePairs[i];
+        ePos[i * 6] = a.x;
+        ePos[i * 6 + 1] = a.y;
+        ePos[i * 6 + 2] = a.z;
+        ePos[i * 6 + 3] = b.x;
+        ePos[i * 6 + 4] = b.y;
+        ePos[i * 6 + 5] = b.z;
+      }
+      built.edgeGeometry.attributes.position.needsUpdate = true;
+
+      if (!anyMoved) netDirty.current = false; // settled — stop rebuilding next frame
     }
-    built.edgeGeometry.attributes.position.needsUpdate = true;
 
     /* ---- Edge highlight follows the hovered neuron ---- */
     if (hover.current !== appliedHover.current) {
@@ -709,8 +725,8 @@ const NetMesh = ({
 /* Star field — drifts during intro, streaks during dive, rains in ambient.  */
 /* ------------------------------------------------------------------------- */
 
-const SHELL_COUNT = 360;
-const AMBIENT_STAR_COUNT = 260;
+const SHELL_COUNT = 220;
+const AMBIENT_STAR_COUNT = 150;
 
 const StarField = ({
   phase,

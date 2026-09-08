@@ -1,7 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { SiReact, SiPython, SiTypescript, SiAmazon, SiDocker, SiPostgresql, SiNodedotjs, SiFastapi } from "react-icons/si";
-import { SkillsGlobe, ScrollReveal, TiltCard, KineticTitle } from "@/components/animated";
+import { ScrollReveal, TiltCard, KineticTitle } from "@/components/animated";
+
+/* Heavy (three.js + troika text) — only pulled in when the section is near. */
+const SkillsGlobe = lazy(() => import("@/components/animated/SkillsGlobe"));
 import { skillCategories } from "@/data/profile";
 import { useScene } from "@/contexts/SceneContext";
 
@@ -19,6 +22,9 @@ const techIcons = [
 const SkillsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  /* The globe is a whole WebGL render loop — only mount it while the section
+     is near the viewport so it isn't burning frames off-screen. */
+  const [globeMounted, setGlobeMounted] = useState(false);
   const { registerSection } = useScene();
 
   useEffect(() => registerSection("skills", sectionRef), [registerSection]);
@@ -26,11 +32,10 @@ const SkillsSection = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
+        setGlobeMounted(entry.isIntersecting);
       },
-      { threshold: 0.2 }
+      { threshold: 0, rootMargin: "600px 0px 600px 0px" }
     );
 
     if (sectionRef.current) {
@@ -66,8 +71,12 @@ const SkillsSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-2 h-[400px] md:h-[500px] relative"
           >
-            <SkillsGlobe />
-            {/* Soft cyan/emerald glow underneath the canvas */}
+            {globeMounted && (
+              <Suspense fallback={null}>
+                <SkillsGlobe />
+              </Suspense>
+            )}
+            {/* Soft glow underneath the canvas */}
             <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,hsl(189_94%_50%/0.18),transparent_60%)]" />
           </motion.div>
 

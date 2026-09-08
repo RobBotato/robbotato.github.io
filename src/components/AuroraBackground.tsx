@@ -10,26 +10,25 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const AuroraBackground = () => {
   const { scrollYProgress } = useScroll();
 
-  /* Parallax: glows drift up, grid drifts down, at different rates. */
+  /* Parallax: glows drift up, grid drifts down, at different rates.
+     Only transforms are animated (compositor-cheap) — no per-frame opacity. */
   const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "-28%"]);
   const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
-  const gridOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.05, 0.09, 0.05]);
 
   return (
     <>
       <motion.div className="aurora-bg" style={{ y: glowY }}>
         <div className="aurora-blob aurora-blob-1" />
         <div className="aurora-blob aurora-blob-3" />
-        <div className="aurora-blob aurora-blob-5" />
       </motion.div>
 
-      {/* Moving scan grid — parallax layer */}
+      {/* Scan grid — parallax layer */}
       <motion.div
         aria-hidden
         className="fixed inset-0 pointer-events-none -z-10"
         style={{
           y: gridY,
-          opacity: gridOpacity,
+          opacity: 0.06,
           backgroundImage:
             "linear-gradient(hsl(214 100% 70% / 0.6) 1px, transparent 1px), linear-gradient(90deg, hsl(214 100% 70% / 0.6) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
@@ -48,7 +47,6 @@ const AuroraBackground = () => {
         }}
         aria-hidden
       />
-      <div className="noise" />
     </>
   );
 };
