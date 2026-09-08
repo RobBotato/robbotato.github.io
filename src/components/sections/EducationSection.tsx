@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { GraduationCap, Calendar, Award } from "lucide-react";
 import { education } from "@/data/profile";
 import { ScrollReveal, TiltCard, KineticTitle } from "@/components/animated";
@@ -11,9 +11,15 @@ const EducationSection = () => {
 
   useEffect(() => registerSection("education", sectionRef), [registerSection]);
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [110, -110]);
+
   return (
     <section id="education" ref={sectionRef} className="py-24 px-4 relative">
-      <div className="container mx-auto max-w-4xl">
+      <motion.div style={{ y }} className="container mx-auto max-w-4xl">
         <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 text-center text-gradient">
           <KineticTitle text="Education" />
         </h2>
@@ -38,7 +44,7 @@ const EducationSection = () => {
               <motion.div
                 whileHover={{
                   y: -8,
-                  boxShadow: "0 20px 60px rgba(6, 182, 212, 0.18)",
+                  boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="glass-strong rounded-3xl p-6 md:p-8"
@@ -85,7 +91,7 @@ const EducationSection = () => {
             </ScrollReveal>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

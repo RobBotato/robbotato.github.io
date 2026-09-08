@@ -17,7 +17,7 @@ const ProjectsSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const y = useTransform(scrollYProgress, [0, 1], [110, -110]);
 
   return (
     <section id="projects" ref={sectionRef} className="py-24 px-4 relative">
@@ -47,7 +47,7 @@ const ProjectsSection = () => {
               <motion.div
                 whileHover={{
                   y: -8,
-                  boxShadow: "0 20px 60px rgba(6, 182, 212, 0.18)",
+                  boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="glass-strong rounded-3xl p-6 md:p-8 h-full"
@@ -84,7 +84,7 @@ const ProjectsSection = () => {
             <motion.div
               whileHover={{
                 y: -8,
-                boxShadow: "0 20px 60px rgba(16, 185, 129, 0.18)",
+                boxShadow: "0 20px 60px rgba(200,212,230, 0.18)",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="glass-strong rounded-3xl p-6 md:p-8 h-full"

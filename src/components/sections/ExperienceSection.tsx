@@ -22,7 +22,7 @@ const ExperienceSection = () => {
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+  const y = useTransform(scrollYProgress, [0, 1], [110, -110]);
 
   /* Timeline line "draws" itself as you scroll through the section. */
   const timelineProgress = useScroll({
@@ -71,7 +71,7 @@ const ExperienceSection = () => {
                     className="glass-strong rounded-3xl p-6 md:p-8"
                     whileHover={{
                       y: -8,
-                      boxShadow: "0 20px 60px rgba(6, 182, 212, 0.18)",
+                      boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
@@ -124,7 +124,7 @@ const ExperienceSection = () => {
                       {exp.skills.map((skill, skillIndex) => (
                         <span 
                           key={skillIndex} 
-                          className="px-3 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-medium tracking-wide hover:bg-cyan-500/20 transition-colors cursor-default"
+                          className="px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-medium tracking-wide hover:bg-blue-500/20 transition-colors cursor-default"
                         >
                           {skill}
                         </span>

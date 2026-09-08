@@ -32,9 +32,9 @@ const PARALLAX_SPEEDS = {
 };
 
 const COLORS = {
-  cyan: "hsl(199 89% 48%)",
-  purple: "hsl(260 70% 55%)",
-  pink: "hsl(320 70% 50%)",
+  cyan: "hsl(214 100% 60%)",
+  purple: "hsl(220 12% 60%)",
+  pink: "hsl(205 100% 74%)",
 };
 
 const GeometricAmbience = ({

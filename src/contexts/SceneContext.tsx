@@ -46,6 +46,8 @@ interface SceneContextValue {
   activeSceneRef: MutableRefObject<Scene>;
   /** 0..1 progress of the active section relative to the viewport center. */
   sceneProgressRef: MutableRefObject<number>;
+  /** Smoothed absolute scroll speed in px/ms. Read every frame by the 3D background. */
+  scrollVelocityRef: MutableRefObject<number>;
   /** Sections call this in a useEffect to register themselves with the director. */
   registerSection: (id: Scene, ref: RefObject<HTMLElement>) => () => void;
   /** Global warp state for cinematic transitions out of the main page */
@@ -68,9 +70,10 @@ export const SceneProvider = ({ children }: { children: ReactNode }) => {
   /* id → ref. Used by the scroll listener to compute progress for the active section. */
   const sectionsRef = useRef<Map<Scene, RefObject<HTMLElement>>>(new Map());
 
-  /* Hot-path values — read every frame by useFrame in ConstellationField. */
+  /* Hot-path values — read every frame by useFrame in the 3D background. */
   const activeSceneRef = useRef<Scene>("hero");
   const sceneProgressRef = useRef<number>(0);
+  const scrollVelocityRef = useRef<number>(0);
 
   /* Tree-subscriber state — drives NavBar/ChapterStrip/SceneCutLine re-renders. */
   const [activeScene, setActiveScene] = useState<Scene>("hero");
@@ -178,8 +181,21 @@ export const SceneProvider = ({ children }: { children: ReactNode }) => {
     if (typeof window === "undefined") return;
 
     let rafPending = false;
+    let lastY = window.scrollY;
+    let lastT = performance.now();
     const compute = () => {
       rafPending = false;
+
+      /* Scroll velocity (px/ms), smoothed — feeds the scroll-driven background. */
+      const now = performance.now();
+      const dt = now - lastT;
+      if (dt > 0) {
+        const v = Math.abs(window.scrollY - lastY) / dt;
+        scrollVelocityRef.current = scrollVelocityRef.current * 0.7 + v * 0.3;
+        lastY = window.scrollY;
+        lastT = now;
+      }
+
       const scene = activeSceneRef.current;
       const el = sectionsRef.current.get(scene)?.current;
       if (!el) {
@@ -220,6 +236,7 @@ export const SceneProvider = ({ children }: { children: ReactNode }) => {
       activeScene,
       activeSceneRef,
       sceneProgressRef,
+      scrollVelocityRef,
       registerSection,
       isWarping,
       triggerWarp,

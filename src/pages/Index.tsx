@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import AuroraBackground from "@/components/AuroraBackground";
 import CursorGlow from "@/components/CursorGlow";
 import ScrollMotionBlur from "@/components/ScrollMotionBlur";
-import { GeometricAmbience, ChapterStrip, SceneCutLine, SectionCutSentinel, ConstellationField } from "@/components/animated";
+import { GeometricAmbience, ChapterStrip, SceneCutLine, SectionCutSentinel, NeuralNetField, ScrollProgress } from "@/components/animated";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -78,8 +78,8 @@ const IndexInner = () => {
         <CursorGlow />
         {/* Feature C: Scroll-velocity motion blur — writes --scroll-blur CSS var */}
         <ScrollMotionBlur />
-        {/* Constellation canvas — persistent across intro/ambient. Reads phase from context. */}
-        <ConstellationField rotationSpeed={0.003} />
+        {/* Neural-net canvas — persistent across intro/ambient. Reads phase from context. */}
+        <NeuralNetField rotationSpeed={0.0016} />
 
         {/* Intro overlay — only renders during intro/diving phases. */}
         <IntroOverlay />
@@ -105,6 +105,7 @@ const IndexInner = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
+              <ScrollProgress />
               <ChapterStrip />
               <SceneCutLine />
               <AuroraBackground />

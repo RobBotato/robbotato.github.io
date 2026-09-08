@@ -13,9 +13,9 @@ const DEFAULT_WORDS = [
 ];
 
 /* Cyan ↔ emerald gradient across the sphere. Position-based so it's stable per word. */
-const EMERALD = new THREE.Color("#10b981");
-const CYAN = new THREE.Color("#22d3ee");
-const HOVER = new THREE.Color("#a5f3fc");
+const EMERALD = new THREE.Color("#c8d4e6");
+const CYAN = new THREE.Color("#3b9dff");
+const HOVER = new THREE.Color("#bfdbfe");
 
 const Word = ({
   position,
@@ -119,8 +119,8 @@ const WordGlobe = ({ words = DEFAULT_WORDS }: { words?: string[] }) => {
         gl={{ antialias: false, alpha: true }}
       >
         <ambientLight intensity={0.6} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} color="#22d3ee" />
-        <pointLight position={[-10, -10, -10]} intensity={0.4} color="#10b981" />
+        <pointLight position={[10, 10, 10]} intensity={0.8} color="#3b9dff" />
+        <pointLight position={[-10, -10, -10]} intensity={0.4} color="#c8d4e6" />
 
         <Cloud radius={6} words={words} />
 

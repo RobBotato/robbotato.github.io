@@ -18,7 +18,7 @@ const AboutSection = () => {
   });
 
   /* Pure parallax y for the section — entrance is handled by ScrollReveal. */
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [130, -130]);
 
   return (
     <section id="about" ref={sectionRef} className="py-32 px-4 relative">
@@ -28,7 +28,7 @@ const AboutSection = () => {
         <div className="glass-strong rounded-3xl p-8 md:p-12 relative overflow-hidden">
           {/* Subtle background glow that moves opposite to scroll */}
           <motion.div 
-            style={{ y: useTransform(scrollYProgress, [0, 1], [-50, 50]) }}
+            style={{ y: useTransform(scrollYProgress, [0, 1], [-90, 90]) }}
             className="absolute -top-20 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-[80px] pointer-events-none"
           />
           {/* Section Title — kinetic word-by-word reveal. */}
@@ -49,7 +49,7 @@ const AboutSection = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  whileHover={{ scale: 1.1, backgroundColor: "rgba(11, 165, 236, 0.2)" }}
+                  whileHover={{ scale: 1.1, backgroundColor: "rgba(59,130,246, 0.2)" }}
                   transition={{ duration: 0.4, delay: 0.1 * index }}
                   className="pill bg-primary/10 text-primary border-primary/20 cursor-default"
                 >

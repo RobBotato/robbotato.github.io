@@ -69,11 +69,11 @@ const SceneCutLine = () => {
                 duration: 0.8,
                 ease: "easeOut"
               }}
-              className="absolute rounded-full border-cyan-400"
+              className="absolute rounded-full border-blue-400"
               style={{
                 width: "min(80vw, 600px)",
                 height: "min(80vw, 600px)",
-                boxShadow: "0 0 30px hsl(189, 94%, 50%, 0.4), inset 0 0 20px hsl(189, 94%, 50%, 0.2)"
+                boxShadow: "0 0 30px hsl(214,100%,62%, 0.4), inset 0 0 20px hsl(214,100%,62%, 0.2)"
               }}
             />
 
@@ -84,7 +84,7 @@ const SceneCutLine = () => {
               animate={{ opacity: [0, 0.15, 0] }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute inset-0 bg-cyan-500/10 mix-blend-overlay"
+              className="absolute inset-0 bg-blue-500/10 mix-blend-overlay"
             />
           </>
         )}

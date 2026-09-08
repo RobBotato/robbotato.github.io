@@ -11,9 +11,9 @@ const SKILLS = [
 ];
 
 /* Cyan ↔ emerald gradient across the sphere. Position-based so it's stable per word. */
-const CYAN = new THREE.Color("#22d3ee");
-const EMERALD = new THREE.Color("#10b981");
-const HOVER = new THREE.Color("#a5f3fc");
+const CYAN = new THREE.Color("#3b9dff");
+const EMERALD = new THREE.Color("#c8d4e6");
+const HOVER = new THREE.Color("#bfdbfe");
 
 const Word = ({
   position,
@@ -118,8 +118,8 @@ const SkillsGlobe = () => {
       >
         {/* Brighter scene than the constellation — this one is meant to be seen. */}
         <ambientLight intensity={0.6} />
-        <pointLight position={[10, 10, 10]} intensity={0.8} color="#22d3ee" />
-        <pointLight position={[-10, -10, -10]} intensity={0.4} color="#10b981" />
+        <pointLight position={[10, 10, 10]} intensity={0.8} color="#3b9dff" />
+        <pointLight position={[-10, -10, -10]} intensity={0.4} color="#c8d4e6" />
 
         <Cloud radius={6} skills={SKILLS} />
 

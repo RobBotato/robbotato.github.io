@@ -52,15 +52,15 @@ const ScrollReveal = ({
   }
 
   /* Initial transform values per direction. Settled state is always all-zeros + scale 1. */
-  const startY = from === "up" ? 60 * intensity : 0;
+  const startY = from === "up" ? 96 * intensity : 0;
   const startX =
-    from === "left" ? -80 * intensity :
-    from === "right" ? 80 * intensity : 0;
-  const startRotateX = !flat && from === "up" ? -10 * intensity : 0;
+    from === "left" ? -120 * intensity :
+    from === "right" ? 120 * intensity : 0;
+  const startRotateX = !flat && from === "up" ? -14 * intensity : 0;
   const startRotateY =
-    !flat && from === "left" ? 14 * intensity :
-    !flat && from === "right" ? -14 * intensity : 0;
-  const startScale = from === "zoom" ? 0.85 : 0.95;
+    !flat && from === "left" ? 18 * intensity :
+    !flat && from === "right" ? -18 * intensity : 0;
+  const startScale = from === "zoom" ? 0.8 : 0.93;
 
   return (
     <motion.div
@@ -71,6 +71,7 @@ const ScrollReveal = ({
         rotateX: startRotateX,
         rotateY: startRotateY,
         scale: startScale,
+        filter: "blur(8px)",
       }}
       whileInView={{
         opacity: 1,
@@ -79,10 +80,11 @@ const ScrollReveal = ({
         rotateX: 0,
         rotateY: 0,
         scale: 1,
+        filter: "blur(0px)",
       }}
       viewport={{ once: true, margin: "0px 0px 150px 0px" }}
       transition={{
-        duration: 0.75,
+        duration: 0.85,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}

@@ -82,7 +82,7 @@ const SkillsSection = () => {
               <motion.div
                 whileHover={{
                   y: -8,
-                  boxShadow: "0 20px 60px rgba(6, 182, 212, 0.18)",
+                  boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 className="glass-strong rounded-2xl p-5 md:p-6 h-full"
@@ -100,7 +100,7 @@ const SkillsSection = () => {
                       animate={isVisible ? { opacity: 1, scale: 1 } : {}}
                       whileHover={{
                         scale: 1.05,
-                        boxShadow: "0 0 18px rgba(6, 182, 212, 0.45)",
+                        boxShadow: "0 0 18px rgba(37,99,235, 0.45)",
                       }}
                       whileTap={{ scale: 0.95 }}
                       transition={{

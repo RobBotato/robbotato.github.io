@@ -2,7 +2,7 @@
 export { default as CodeParticles } from "./CodeParticles";
 export { default as TechOrbit } from "./TechOrbit";
 export { default as GeometricAmbience } from "./GeometricAmbience";
-export { default as ConstellationField } from "./ConstellationField";
+export { default as NeuralNetField } from "./NeuralNetField";
 export { default as ScrollProgress } from "./ScrollProgress";
 export { default as SkillsGlobe } from "./SkillsGlobe";
 export { default as ScrollReveal } from "./ScrollReveal";
