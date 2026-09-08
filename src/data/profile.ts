@@ -35,7 +35,7 @@ export interface SkillCategory {
 export const profile = {
   name: "Robert Li",
   tagline: "Competitive Programmer • USACO Silver • Aspiring Security Researcher",
-  region: "Pleasanton, CA",
+  region: "San Francisco Bay Area",
   contact: {
     phone: "",
     email: "lirobert2009@gmail.com",

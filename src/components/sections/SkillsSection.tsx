@@ -85,7 +85,7 @@ const SkillsSection = () => {
                   boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="glass-strong rounded-2xl p-5 md:p-6 h-full"
+                className="panel p-5 md:p-6 h-full"
               >
                 <h3 className="font-display text-lg font-semibold mb-4 text-primary flex items-center gap-2">
                   <span className="font-mono text-accent text-sm">{`{`}</span>

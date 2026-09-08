@@ -68,7 +68,7 @@ const ExperienceSection = () => {
 
                   <TiltCard>
                   <motion.div
-                    className="glass-strong rounded-3xl p-6 md:p-8"
+                    className="panel p-6 md:p-8"
                     whileHover={{
                       y: -8,
                       boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",

@@ -47,7 +47,7 @@ const EducationSection = () => {
                   boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="glass-strong rounded-3xl p-6 md:p-8"
+                className="panel p-6 md:p-8"
               >
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-4">
                   <div>

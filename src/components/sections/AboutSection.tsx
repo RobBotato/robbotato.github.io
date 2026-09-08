@@ -25,7 +25,7 @@ const AboutSection = () => {
       <motion.div style={{ y: parallaxY }} className="container mx-auto max-w-4xl">
         <ScrollReveal from="zoom" intensity={1}>
         <TiltCard maxTilt={4}>
-        <div className="glass-strong rounded-3xl p-8 md:p-12 relative overflow-hidden">
+        <div className="panel p-8 md:p-12 relative overflow-hidden">
           {/* Subtle background glow that moves opposite to scroll */}
           <motion.div 
             style={{ y: useTransform(scrollYProgress, [0, 1], [-90, 90]) }}

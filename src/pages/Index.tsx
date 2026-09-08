@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import AuroraBackground from "@/components/AuroraBackground";
 import CursorGlow from "@/components/CursorGlow";
 import ScrollMotionBlur from "@/components/ScrollMotionBlur";
-import { GeometricAmbience, ChapterStrip, SceneCutLine, SectionCutSentinel, NeuralNetField, ScrollProgress } from "@/components/animated";
+import { GeometricAmbience, ChapterStrip, SectionCutSentinel, NeuralNetField } from "@/components/animated";
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -105,9 +105,7 @@ const IndexInner = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <ScrollProgress />
               <ChapterStrip />
-              <SceneCutLine />
               <AuroraBackground />
               <GeometricAmbience shapeCount={10} colorPalette={["cyan", "purple", "pink"]} />
 

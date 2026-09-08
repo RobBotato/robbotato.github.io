@@ -50,7 +50,7 @@ const ProjectsSection = () => {
                   boxShadow: "0 20px 60px rgba(37,99,235, 0.18)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="glass-strong rounded-3xl p-6 md:p-8 h-full"
+                className="panel p-6 md:p-8 h-full"
               >
                 <div className="flex items-center gap-2 text-primary mb-3">
                   <Code size={20} />
@@ -87,7 +87,7 @@ const ProjectsSection = () => {
                 boxShadow: "0 20px 60px rgba(200,212,230, 0.18)",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="glass-strong rounded-3xl p-6 md:p-8 h-full"
+              className="panel p-6 md:p-8 h-full"
             >
               <div className="flex items-center gap-2 text-accent mb-4">
                 <Trophy size={20} />
