@@ -4,6 +4,7 @@ import { navLinks, profile } from "@/data/profile";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScene } from "@/contexts/SceneContext";
 import GlitchText from "@/components/animated/GlitchText";
+import { scrollToSection } from "@/lib/sectionNavigation";
 
 interface NavBarProps {
   onResumeClick: () => void;
@@ -20,7 +21,7 @@ const NavBar = ({ onResumeClick, onLogoClick }: NavBarProps) => {
    * with ChapterStrip), so the navbar highlight, the chapter strip, and the
    * match-cut line all switch in lockstep instead of via competing IOs.
    */
-  const activeSection = activeScene === "hero" ? "" : `#${activeScene}`;
+  const activeSection = activeScene === "hero" ? "" : activeScene;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,12 +32,9 @@ const NavBar = ({ onResumeClick, onLogoClick }: NavBarProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (section: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSection(section);
   };
 
   return (
@@ -87,10 +85,10 @@ const NavBar = ({ onResumeClick, onLogoClick }: NavBarProps) => {
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
+                key={link.section}
+                onClick={() => handleNavClick(link.section)}
                 className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-300 ${
-                  activeSection === link.href
+                  activeSection === link.section
                     ? "text-primary"
                     : "text-foreground/70 hover:text-foreground"
                 }`}
@@ -136,10 +134,10 @@ const NavBar = ({ onResumeClick, onLogoClick }: NavBarProps) => {
               <div className="flex flex-col gap-1">
                 {navLinks.map((link) => (
                   <button
-                    key={link.href}
-                    onClick={() => handleNavClick(link.href)}
+                    key={link.section}
+                    onClick={() => handleNavClick(link.section)}
                     className={`px-4 py-3 rounded-xl text-left font-medium transition-all ${
-                      activeSection === link.href
+                      activeSection === link.section
                         ? "bg-primary/20 text-primary"
                         : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
                     }`}

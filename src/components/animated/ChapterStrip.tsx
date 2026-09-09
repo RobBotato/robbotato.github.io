@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useScene, SCENE_ORDER, type Scene } from "@/contexts/SceneContext";
+import { scrollToSection } from "@/lib/sectionNavigation";
 
 /* ------------------------------------------------------------------------- */
 /* ChapterStrip — vertical "film strip" indicator on the right edge that     */
@@ -12,16 +13,16 @@ interface Chapter {
   scene: Scene;
   number: string;
   label: string;
-  href: string | null; // null for hero (no nav link)
+  section: string | null;
 }
 
 const CHAPTERS: Chapter[] = [
-  { scene: "hero",       number: "01", label: "Intro",      href: null },
-  { scene: "about",      number: "02", label: "About",      href: "#about" },
-  { scene: "experience", number: "03", label: "Experience", href: "#experience" },
-  { scene: "skills",     number: "04", label: "Skills",     href: "#skills" },
-  { scene: "education",  number: "05", label: "Education",  href: "#education" },
-  { scene: "projects",   number: "06", label: "Projects",   href: "#projects" },
+  { scene: "hero",       number: "01", label: "Intro",      section: null },
+  { scene: "about",      number: "02", label: "About",      section: "about" },
+  { scene: "experience", number: "03", label: "Experience", section: "experience" },
+  { scene: "skills",     number: "04", label: "Skills",     section: "skills" },
+  { scene: "education",  number: "05", label: "Education",  section: "education" },
+  { scene: "projects",   number: "06", label: "Projects",   section: "projects" },
 ];
 
 /* Sanity check at module-evaluation time: chapters cover every Scene, in order. */
@@ -41,8 +42,8 @@ const ChapterStrip = () => {
       {CHAPTERS.map((chapter) => {
         const isActive = chapter.scene === activeScene;
         const handleClick = () => {
-          if (chapter.href) {
-            document.querySelector(chapter.href)?.scrollIntoView({ behavior: "smooth" });
+          if (chapter.section) {
+            scrollToSection(chapter.section);
           } else if (chapter.scene === "hero") {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }

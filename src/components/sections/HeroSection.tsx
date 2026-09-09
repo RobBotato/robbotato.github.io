@@ -6,6 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { CodeParticles } from "@/components/animated";
 import { profile } from "@/data/profile";
 import { useScene } from "@/contexts/SceneContext";
+import { scrollToSection } from "@/lib/sectionNavigation";
 
 interface HeroSectionProps {
   onResumeClick: () => void;
@@ -306,8 +307,9 @@ const HeroSection = ({ onResumeClick }: HeroSectionProps) => {
                 <Download size={20} />
                 View Resume
               </motion.button>
-              <motion.a
-                href="#about"
+              <motion.button
+                type="button"
+                onClick={() => scrollToSection("about")}
                 /* Learn More crashes in from the right slightly later — feels like a collision. */
                 initial={{ x: 340, opacity: 0, rotate: 8 }}
                 animate={{ x: 0, opacity: 1, rotate: 0 }}
@@ -323,7 +325,7 @@ const HeroSection = ({ onResumeClick }: HeroSectionProps) => {
                 className="px-8 py-4 rounded-2xl glass font-semibold transition-all"
               >
                 Learn More
-              </motion.a>
+              </motion.button>
             </div>
           </div>
 

@@ -28,8 +28,21 @@ export const shouldHandleNeuralPointer = (target: unknown): boolean => {
   return !closest.call(target, INTERACTIVE_TARGET_SELECTOR);
 };
 
+/**
+ * Prefer the element currently under the pointer over the event's original
+ * target. Animated transforms can move foreground controls after an event was
+ * targeted, while elementFromPoint reflects their current visual position.
+ */
+export const shouldHandleNeuralPointerAtPoint = (
+  eventTarget: unknown,
+  pointTarget: unknown,
+): boolean => shouldHandleNeuralPointer(pointTarget ?? eventTarget);
+
 /** Cancel only the synthetic background click produced by a neuron grab. */
 export const shouldCancelClickAfterNeuronGrab = (
   neuronWasGrabbed: boolean,
-  target: unknown,
-): boolean => neuronWasGrabbed && shouldHandleNeuralPointer(target);
+  eventTarget: unknown,
+  pointTarget?: unknown,
+): boolean =>
+  neuronWasGrabbed &&
+  shouldHandleNeuralPointerAtPoint(eventTarget, pointTarget);

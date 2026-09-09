@@ -155,9 +155,9 @@ export const awards: Award[] = [
 ];
 
 export const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Skills", href: "#skills" },
-  { label: "Education", href: "#education" },
-  { label: "Projects", href: "#projects" },
+  { label: "About", section: "about" },
+  { label: "Experience", section: "experience" },
+  { label: "Skills", section: "skills" },
+  { label: "Education", section: "education" },
+  { label: "Projects", section: "projects" },
 ];

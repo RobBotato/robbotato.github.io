@@ -5,7 +5,7 @@ import { useIntro, type IntroPhase } from "@/contexts/IntroContext";
 import { useScene, type Scene } from "@/contexts/SceneContext";
 import {
   shouldCancelClickAfterNeuronGrab,
-  shouldHandleNeuralPointer,
+  shouldHandleNeuralPointerAtPoint,
 } from "@/lib/neuralNetInteraction";
 import * as THREE from "three";
 
@@ -327,7 +327,8 @@ const NetMesh = ({
         if (e.cancelable) e.preventDefault();
         return;
       }
-      if (!shouldHandleNeuralPointer(e.target)) {
+      const pointTarget = document.elementFromPoint(e.clientX, e.clientY);
+      if (!shouldHandleNeuralPointerAtPoint(e.target, pointTarget)) {
         if (hover.current !== -1) {
           hover.current = -1;
           document.body.style.cursor = "";
@@ -353,7 +354,11 @@ const NetMesh = ({
     };
 
     const onDown = (e: PointerEvent) => {
-      if (!interactive.current || !shouldHandleNeuralPointer(e.target)) return;
+      const pointTarget = document.elementFromPoint(e.clientX, e.clientY);
+      if (
+        !interactive.current ||
+        !shouldHandleNeuralPointerAtPoint(e.target, pointTarget)
+      ) return;
       const hit = pickNode(e.clientX, e.clientY);
       if (hit >= 0) {
         drag.current.index = hit;
@@ -371,6 +376,7 @@ const NetMesh = ({
       const shouldCancel = shouldCancelClickAfterNeuronGrab(
         grabbedThisPress,
         e.target,
+        document.elementFromPoint(e.clientX, e.clientY),
       );
       grabbedThisPress = false;
       if (shouldCancel) {
