@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIntro, type IntroPhase } from "@/contexts/IntroContext";
 import { useScene, type Scene } from "@/contexts/SceneContext";
+import { shouldHandleNeuralPointer } from "@/lib/neuralNetInteraction";
 import * as THREE from "three";
 
 /* ------------------------------------------------------------------------- */
@@ -323,6 +324,13 @@ const NetMesh = ({
         if (e.cancelable) e.preventDefault();
         return;
       }
+      if (!shouldHandleNeuralPointer(e.target)) {
+        if (hover.current !== -1) {
+          hover.current = -1;
+          document.body.style.cursor = "";
+        }
+        return;
+      }
       if (!interactive.current) {
         if (hover.current !== -1) {
           hover.current = -1;
@@ -342,7 +350,7 @@ const NetMesh = ({
     };
 
     const onDown = (e: PointerEvent) => {
-      if (!interactive.current) return;
+      if (!interactive.current || !shouldHandleNeuralPointer(e.target)) return;
       const hit = pickNode(e.clientX, e.clientY);
       if (hit >= 0) {
         drag.current.index = hit;
