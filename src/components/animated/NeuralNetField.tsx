@@ -3,7 +3,10 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useIntro, type IntroPhase } from "@/contexts/IntroContext";
 import { useScene, type Scene } from "@/contexts/SceneContext";
-import { shouldHandleNeuralPointer } from "@/lib/neuralNetInteraction";
+import {
+  shouldCancelClickAfterNeuronGrab,
+  shouldHandleNeuralPointer,
+} from "@/lib/neuralNetInteraction";
 import * as THREE from "three";
 
 /* ------------------------------------------------------------------------- */
@@ -365,8 +368,12 @@ const NetMesh = ({
     /* Swallow the click that would otherwise fire on a page element under the
        cursor right after a neuron grab, so dragging never navigates. */
     const onClickCapture = (e: MouseEvent) => {
-      if (grabbedThisPress) {
-        grabbedThisPress = false;
+      const shouldCancel = shouldCancelClickAfterNeuronGrab(
+        grabbedThisPress,
+        e.target,
+      );
+      grabbedThisPress = false;
+      if (shouldCancel) {
         e.stopPropagation();
         e.preventDefault();
       }

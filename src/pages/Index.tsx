@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { AnimatePresence, motion } from "framer-motion";
 import AuroraBackground from "@/components/AuroraBackground";
@@ -15,9 +15,14 @@ import Footer from "@/components/Footer";
 import ResumeModal from "@/components/ResumeModal";
 import BackToTop from "@/components/BackToTop";
 import IntroOverlay from "@/components/intro/IntroOverlay";
+import Hobbies from "@/pages/Hobbies";
 import { IntroProvider, useIntro } from "@/contexts/IntroContext";
 import { SceneProvider, useScene } from "@/contexts/SceneContext";
 import { profile } from "@/data/profile";
+import {
+  isBeyondCodeHistoryState,
+  openBeyondCodeHistory,
+} from "@/lib/beyondCodeHistory";
 
 const Index = () => {
   return (
@@ -31,8 +36,39 @@ const Index = () => {
 
 const IndexInner = () => {
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false);
+  const [isBeyondCodeOpen, setIsBeyondCodeOpen] = useState(() =>
+    isBeyondCodeHistoryState(window.history.state),
+  );
+  const portfolioScrollY = useRef(0);
   const { phase, replayIntro } = useIntro();
   const { isWarping } = useScene();
+
+  const openBeyondCode = useCallback(() => {
+    portfolioScrollY.current = window.scrollY;
+    openBeyondCodeHistory(window.history);
+    setIsBeyondCodeOpen(true);
+  }, []);
+
+  const closeBeyondCode = useCallback(() => {
+    if (isBeyondCodeHistoryState(window.history.state)) {
+      window.history.back();
+    } else {
+      setIsBeyondCodeOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const syncWithHistory = () => {
+      const isOpen = isBeyondCodeHistoryState(window.history.state);
+      setIsBeyondCodeOpen(isOpen);
+      if (!isOpen) {
+        requestAnimationFrame(() => window.scrollTo(0, portfolioScrollY.current));
+      }
+    };
+
+    window.addEventListener("popstate", syncWithHistory);
+    return () => window.removeEventListener("popstate", syncWithHistory);
+  }, []);
 
   /* Body content fades in once the dive completes — synced with overlay's fade-out. */
   /* Body hides during warp so only the constellation is visible */
@@ -47,6 +83,10 @@ const IndexInner = () => {
   useEffect(() => {
     if (phase !== "done") setIsResumeModalOpen(false);
   }, [phase]);
+
+  if (isBeyondCodeOpen) {
+    return <Hobbies onBack={closeBeyondCode} />;
+  }
 
   return (
     <>
@@ -114,7 +154,7 @@ const IndexInner = () => {
               <main>
                 <HeroSection onResumeClick={() => setIsResumeModalOpen(true)} />
                 <SectionCutSentinel />
-                <AboutSection />
+                <AboutSection onExplore={openBeyondCode} />
                 <SectionCutSentinel />
                 <ExperienceSection />
                 <SectionCutSentinel />

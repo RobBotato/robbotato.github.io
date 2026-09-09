@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import CursorGlow from "@/components/CursorGlow";
@@ -56,8 +55,11 @@ function BentoCard({ children, className = "", delay = 0 }: { children: React.Re
 /* ------------------------------------------------------------------------- */
 /* Hobbies Page — Bento Box Layout                                          */
 /* ------------------------------------------------------------------------- */
-const Hobbies = () => {
-  const navigate = useNavigate();
+interface HobbiesProps {
+  onBack: () => void;
+}
+
+const Hobbies = ({ onBack }: HobbiesProps) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -80,7 +82,7 @@ const Hobbies = () => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          onClick={() => navigate("/")}
+          onClick={onBack}
           className="fixed top-6 left-6 md:top-8 md:left-10 z-50 group flex items-center gap-2 text-foreground/50 hover:text-blue-400 transition-colors font-mono text-sm uppercase tracking-widest bg-black/20 px-5 py-2.5 rounded-full backdrop-blur-lg border border-white/5 shadow-lg"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

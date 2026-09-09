@@ -27,3 +27,9 @@ export const shouldHandleNeuralPointer = (target: unknown): boolean => {
 
   return !closest.call(target, INTERACTIVE_TARGET_SELECTOR);
 };
+
+/** Cancel only the synthetic background click produced by a neuron grab. */
+export const shouldCancelClickAfterNeuronGrab = (
+  neuronWasGrabbed: boolean,
+  target: unknown,
+): boolean => neuronWasGrabbed && shouldHandleNeuralPointer(target);
